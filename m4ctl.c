@@ -18,6 +18,8 @@
 
 #include <stdio.h>
 #include <usb.h>
+#include <time.h>
+#include <string.h>
 
 #include "m4api.h"
 
