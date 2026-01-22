@@ -18,6 +18,7 @@
 
 #include <stdio.h>
 #include <usb.h>
+#include <strings.h>
 
 #include "m4api.h"
 
@@ -130,6 +131,25 @@ struct m4ConfigField m4ConfigFields[47] = {
 #define WRITE_ENDPOINT 0x01
 #define TIMEOUT 3000
 
+/* Function Prototypes */
+int m4ConfigField(char const *name);
+void m4PrintDiag(char *buf);
+int m4SetBinary(usb_dev_handle *dev, struct m4ConfigField *field, char const *val);
+int m4SetConfig(usb_dev_handle *dev, struct m4ConfigField *field, char const *strval);
+int m4SetInteger(usb_dev_handle *dev, enum m4FieldID fid, int val);
+int m4GetInteger(usb_dev_handle *dev, enum m4FieldID fid, int *out);
+int m4SetFloat(usb_dev_handle *dev, enum m4FieldID fid, float val);
+int m4GetFloat(usb_dev_handle *dev, enum m4FieldID fid, float *out);
+int m4ParseValue(enum m4Type type, char const *strval, char *buf);
+int m4GetConfig(usb_dev_handle *dev, struct m4ConfigField *field, char *buf);
+void m4PrintVal(enum m4Type type, float val);
+float m4GetVal(enum m4Type type, char *posn);
+int m4GetDiag (usb_dev_handle *dev, struct m4Diagnostics *diag);
+int m4CheckVersion(char *buf);
+int m4FetchDiag (usb_dev_handle *dev, char *buf);
+usb_dev_handle *m4Init();
+int m4Write(usb_dev_handle *dev, unsigned char *buf, unsigned int len, int timeout);
+int m4Read(usb_dev_handle *dev, unsigned char *buf, unsigned int len, int timeout);
 
 static usb_dev_handle *m4InitUSB() {
   struct usb_bus *bus;
